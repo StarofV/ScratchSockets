@@ -1,4 +1,4 @@
-const request = require("./get_request.js");
+const request = require("./exterbal_block_code/get_request.js");
 
 (function(ext) {
     // Cleanup function when the extension is unloaded
