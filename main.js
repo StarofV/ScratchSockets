@@ -9,24 +9,33 @@ const request = require("./get_request.js");
     ext._getStatus = function() {
         return {status: 2, msg: 'Ready'};
     };
-
+	
+	const options = {
+		host: 'somesite.com',
+		port: 80,
+		method: 'GET',
+		headers: {
+			'Content-Type ': 'application/json'
+		}
+	};
+    
     ext.get_request = function() {
-		var options = {
-			host: 'somesite.com',
-			port: 80,
-			method: 'GET',
-			headers: {
-				'Content-Type ': 'application/json'
-			}
+		rest.getJSON(options, function(statusCode, result) {
+			// I could work with the result html/json here.  I could also just return it
+			return ("onResult: (" + statusCode + ")" + JSON.stringify(result));
+			res.statusCode = statusCode;
+			res.send(result);
+		});
+
 	};
     
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-			['r', 'Get request url', 'get_request'],
+			['r', 'Get request %s', 'get_request'],
         ]
     };
 
     // Register the extension
     ScratchExtensions.register('Networking', descriptor, ext);
-})({});
+});
